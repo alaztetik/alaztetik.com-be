@@ -1,7 +1,13 @@
-import { boot, app } from "./boot.js";
+import express from "express";
+import authRouter from "./controllers/auth.js";
+import rateLimit from "./controllers/rateLimit.js";
 
-app.get('/', (req, res) => {
-    res.send('Hello');
+export const app = express();
+
+app.use(rateLimit);
+
+app.use('/login', authRouter);
+
+app.listen(3000, () => {
+    console.log("Listening on port 3000");
 });
-
-boot();
